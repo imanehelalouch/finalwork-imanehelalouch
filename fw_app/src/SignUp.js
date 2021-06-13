@@ -11,7 +11,7 @@ export default class SignUp extends Component
 {
 
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
 
@@ -52,6 +52,14 @@ export default class SignUp extends Component
         <Text style={styles.title}>SIGN UP</Text>
         <Form style={styles.form}>
           
+
+          <TextInput
+          style={styles.input}
+          placeholder="username"
+          autoCorrect={false}
+            autoCapitalize="none"
+            />
+
 
           <TextInput
           style={styles.input}

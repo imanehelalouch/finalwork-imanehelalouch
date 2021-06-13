@@ -14,7 +14,7 @@ export default class Settings extends Component
 {
 
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
   render() {

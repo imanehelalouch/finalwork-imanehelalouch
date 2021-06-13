@@ -13,7 +13,7 @@ import GlobalFont from 'react-native-global-font';
 export default class Add1 extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
   Back=()=>
@@ -62,16 +62,17 @@ export default class Add1 extends Component
           onChangeText={(end)=> this.setState({end})}/>
 
 
-          <TouchableOpacity activeOpacity={0.95} style={styles.start} onPress={this.Next}>
+          
+        </Form>
+        <TouchableOpacity activeOpacity={0.95} style={styles.start} onPress={this.Next}>
           <ArrowRight stroke="#fff"  width={25} height={25} margin={15}/>
 
         </TouchableOpacity>
-        </Form>
-        
         </View>
         
         
-        
+        <View style={styles.broll}>
+            </View>
       </View>
       
     );
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     backgroundColor: "#3E71FF",
-    height: 50,
+    height: "7%",
   },
   menu: {
     position: "absolute",
@@ -116,6 +117,9 @@ const styles = StyleSheet.create({
     borderRadius:100,
     marginTop: 60,
     alignSelf: "center",
+    zIndex: 0,
+    elevation: 0,
+    bottom: -152,
   },
   to: {
     height: 50
@@ -142,6 +146,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5, 
     backgroundColor: "white",
-  }
+    height:"94%"
+  },
+
 
 })

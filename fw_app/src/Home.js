@@ -1,8 +1,9 @@
 import React, {Component,useState} from 'react';
-import {StatusBar,SafeAreaView, View, Text,List, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {StatusBar,SafeAreaView,Item,ScrollView,TextInput, View, Text,List, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 //import { createAppContainer } from 'react-navigation';
 //import { createStackNavigator } from 'react-navigation-stack';
-
+import { clubs } from './data/data';
+import { tracker } from './data/data';
 import { Square } from "react-native-feather";
 import { Circle } from "react-native-feather";
 import { Grid } from "react-native-feather";
@@ -17,38 +18,56 @@ import { CheckCircle } from "react-native-feather";
 import GlobalFont from 'react-native-global-font';
 import { BrowserRouter } from 'react-router-dom';
 import RadioButtonRN from 'radio-buttons-react-native';
+
+
 import "firebase/firestore";
 import * as firebase from 'firebase';
 import firestore from '@firebase/firestore';
 
 
 
+// const dataclubs = [
+// {title: 'Vault-a-thon', description: "A read-a-thon focusing on disney retellings.", challenges: "7 challenges", start: "05-07-2021", end: "12-07-2021", color: "#FED48A"},
+// {title: 'Blacklit Challenge', description: "In honor of Black Lives Matter movement.", challenges: "5 challenges", start: "06-07-2021", end: "10-07-2021", color: "#84BDFF"},
+// {title: 'Read-eh-thon', description: "Celebrating canadian authors.", challenges: "3 challenges", start: "01-07-2021", end: "5-07-2021", color: "#73ECB0"},
+// // {label: '24   25   26', value: "#FF9EF9", color: "#FF9EF9" },
+// // {label: '24   25   26', value: "#C19EFF", color: "#C19EFF" },
+// ];
 
+let helperArray = require('./data/list.json')
 export default class Home extends Component 
 {
-
-  state = {
-        club: {
-            name: ""
-        }
-    }
   constructor(props) {
     super(props);
-    this.getClub();
-    this.subscriber = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').onSnapshot(doc =>{
-        this.setState({
-            club: {
-                name: doc.data().name
-            }
-        })
-    })
+    this.state =  {
+      allClubs : helperArray,
+      clubsFiltered: helperArray
+    }
   }
 
-  getClub = async () => {
-    const clubDocument = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').get()
-    console.log(clubDocument);
-  }
+  // state = {
+  //       club: {
+  //           name: ""
+  //       }
+  //   }
+  // constructor(props) {
+  //   super(props);
+  //   this.getClub();
+  //   const ref = firebase.firestore().collection("clubs");
+  //   this.subscriber = ref.doc('WJ2kAa9E5zNjFwmdIOJ1').onSnapshot(doc =>{
+  //       this.setState({
+  //           club: {
+  //               name: doc.data().name
+  //           }
+  //       })
+  //   })
+  // }
 
+  // getClub = async () => {
+  //   const clubDocument = ref.doc('WJ2kAa9E5zNjFwmdIOJ1').get()
+  //   console.log(clubDocument);
+  // }
+//------------------------------------------
   // state = {
   //   clubs: [],
   // };
@@ -68,7 +87,7 @@ export default class Home extends Component
   // }
 
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
   Menu=()=>
@@ -82,6 +101,13 @@ export default class Home extends Component
   Detail=()=>
   {
     this.props.navigation.navigate('Detail');
+  }
+  searchClub(titleSearch) {
+    this.setState({
+    clubsFiltered: this.state.allClubs.filter(i=>
+      i.title.toLowerCase().includes(titleSearch),
+    ),
+    });
   }
   render() {
 
@@ -110,51 +136,25 @@ export default class Home extends Component
                       dotStyle: { backgroundColor: 'rgba(255, 255, 255, 0.4)' },  
                       
                     }}>
+                    {tracker.map(track =>(
                     <View style={[styles.slideContainer,styles.slide1]}>
                         <View style={styles.slider}>
                           <View style={styles.cover}>
-                            <Image style={styles.cover1} source={require('../images/cover0.jpg')} />
+                          
+                            <Image style={styles.cover1} source={track.cover} />
 
                           </View>
-                          <Text style={styles.bookTitle}>It Ends With Us</Text>
-                          <Text style={styles.bookAuthor}>Colleen Hoover</Text>
+                          <Text style={styles.bookTitle}>{track.title}</Text>
+                          <Text style={styles.bookAuthor}>{track.author}</Text>
                           <View style={styles.subdiv}>
-                            <Text style={styles.title}>Read a book with a flower</Text>
-                            <Text style={styles.subtitle}>Buzzword-a-thon</Text>
+                            <Text style={styles.title}>{track.challenge}</Text>
+                            <Text style={styles.subtitle}>{track.club}</Text>
+                            
                             <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={15}/>
                           </View>
                         </View>
                     </View>
-                    <View style={[styles.slideContainer,styles.slide2]}>
-                        <View style={styles.slider}>
-                          <View style={styles.cover}>
-                            <Image style={styles.cover1} source={require('../images/cover1.jpg')} />
-
-                          </View>
-                          <Text style={styles.bookTitle}>The Invisible Life of A. L.</Text>
-                          <Text style={styles.bookAuthor}>V.E. Schwab</Text>
-                          <View style={styles.subdiv}>
-                            <Text style={styles.title}>Read a book from a new author</Text>
-                            <Text style={styles.subtitle}>Buzzword-a-thon</Text>
-                            <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={15}/>
-                          </View>
-                        </View>
-                    </View>
-                    <View style={[styles.slideContainer,styles.slide3]}>
-                        <View style={styles.slider}>
-                          <View style={styles.cover}>
-                            <Image style={styles.cover1} source={require('../images/cover2.jpg')} />
-
-                          </View>
-                          <Text style={styles.bookTitle}>A Large Expanse of Sea</Text>
-                          <Text style={styles.bookAuthor}>Tahereh Mafi</Text>
-                          <View style={styles.subdiv}>
-                            <Text style={styles.title}>Read a book with a female MC</Text>
-                            <Text style={styles.subtitle}>Booksplosiopn</Text>
-                            <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={15}/>
-                          </View>
-                        </View>
-                    </View>
+                    ))}
                 </Swiper>
             </View>
 
@@ -164,30 +164,34 @@ export default class Home extends Component
         </View>
 
         <View style={styles.div2}>
-        <Search style={styles.search} stroke="black"  width={20} height={20} margin={15}/>
-        <Sliders style={styles.sliders} stroke="black"  width={20} height={20} margin={15}/>
+
+          {/* <Search style={styles.search} stroke="black"  width={20} height={20} margin={15}/> */}
+          <TextInput
+            style={styles.input}
+            placeholder="search"
+            onChangeText={text=>{this.searchClub(text)}}
+          />
+
+        
+        {/* <Sliders style={styles.sliders} stroke="black"  width={20} height={20} margin={15}/> */}
         <Plus onPress={() => this.Add()} style={styles.plus} stroke="black"  width={25} height={25} margin={15}/>
-        <View
+        {/* <View
           style={{
             borderBottomColor: '#efefef',
             borderBottomWidth: .2,
-            marginTop: 62
+            marginTop: 0
           }}
-        />
-
-        <TouchableOpacity onPress={this.Detail}>
+        /> */}
+        <ScrollView>
+{this.state.clubsFiltered.map((item, index ) => (
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Detail', item)}>
           <View style={styles.listitem}>
             <PlusCircle style={styles.plusCircle} stroke="#3E71FF"  width={25} height={25} margin={15}/>
-            <Text style={styles.listitemtitle}>{this.state.club.name}</Text>
-            <Text style={styles.listitemsubtitle}>7 challenges</Text>
+            <Text style={styles.listitemtitle}>{item.title}</Text>
+            <Text style={styles.listitemsubtitle}>{item.challenges}</Text>
           </View>
         </TouchableOpacity>
-        
-          <View style={styles.listitem}>
-            <PlusCircle style={styles.plusCircle} stroke="#3E71FF"  width={25} height={25} margin={15}/>
-            <Text style={styles.listitemtitle}>Spook-a-thon</Text>
-            <Text style={styles.listitemsubtitle}>5 challenges</Text>
-          </View>
+))}</ScrollView>
         </View>
       </View>
       
@@ -218,7 +222,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    height: "55%"
+    height: "55%",
+    paddingTop: 5
   },
   navbar: {
 
@@ -295,7 +300,7 @@ backgroundColor: "white",
   plus: {
     alignSelf:"flex-end",
     position: "absolute",
-    top: 2,
+    top: 8,
     right: 5,
     resizeMode: 'contain',
     flex: 1
@@ -334,7 +339,7 @@ fontSize: 16, position: 'absolute', left: 60, top: 15,
   },
   listitem: {
     marginBottom: 15,
-    marginLeft:5
+    marginLeft:5,
   },
 
 
@@ -359,5 +364,15 @@ fontSize: 16, position: 'absolute', left: 60, top: 15,
     slide3: {
         backgroundColor: "transparent"
     },
-      
+      input: {
+        borderColor: "#efefef",
+        borderWidth: 1,
+        padding: 5,
+        paddingLeft: 15, 
+        margin: 12,
+        marginLeft: 20,
+        width: 310,
+        borderRadius: 50
+
+      }
 })

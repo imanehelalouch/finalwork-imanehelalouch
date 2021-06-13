@@ -1,62 +1,91 @@
 import React, {Component,useState} from 'react';
-import {SafeAreaView, View, Text, ImageComponent,TextInput,Form, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, View, Text, ImageComponent,ScrollView,TextInput,Form, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 //import { createAppContainer } from 'react-navigation';
 //import { createStackNavigator } from 'react-navigation-stack';
 import { AlignLeft } from "react-native-feather";
 import { ArrowLeft } from "react-native-feather";
 import { ArrowRight } from "react-native-feather";
 import { X } from "react-native-feather";
-import { Plus } from "react-native-feather";
+import { PlusCircle } from "react-native-feather";
 import { Trash } from "react-native-feather";
 import GlobalFont from 'react-native-global-font';
 import * as firebase from 'firebase';
 //import {GoogleBookSearch} from 'react-native-google-books';
 
+//const [inputs, setInputs] = useState([{key: '', value: ''}]);
 
-//export default class Add2 extends Component {
-function Add2() {
-  const [challenge, setChallenge]=useState('');
-  const [clubs, setClubs] = useState('');
-  const ref = firebase.firestore().collection("clubs");
-  console.log(ref)
+export default class Add2 extends Component {
+// function Add2() {
+//   const [challenge, setChallenge]=useState('');
+//   const [clubs, setClubs] = useState('');
+//   const ref = firebase.firestore().collection("clubs");
+//   console.log(ref)
 
-  async function Add(){
+//   async function Add(){
 
-    setChallenge('');
+//     setChallenge('');
     
-  }
+//   }
 
-  async function Delete() {
+//   async function Delete() {
     
+//   }
+
+//   function Back()
+//   {
+//     //this.props.navigation.navigate('Add1');
+//   }
+//   function Next()
+//   {
+//     //this.props.navigation.navigate('Add3');
+//   }
+componentDidMount() {
+    let fontName = 'Inter'
+
+    GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally
+ }
+  Back=()=>
+  {
+    this.props.navigation.navigate('Add1');
+  }
+  Next=()=>
+  {
+    this.props.navigation.navigate('Add3');
   }
 
-  function Back()
-  {
-    //this.props.navigation.navigate('Add1');
+constructor(props) {
+  super(props)
+  this.state = {
+    titles: []
   }
-  function Next()
-  {
-    //this.props.navigation.navigate('Add3');
+  //const [inputs, setInputs] = useState([{key: '', value: ''}]);
+
+}
+  // const [inputs, setInputs] = useState([{key: '', value: ''}]);
+
+  addField = () => {
+    this.setState({titles: [...this.state.titles, ""]})
+
   }
-// componentDidMount() {
-//     let fontName = 'Poppins'
-//     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally
-//  }
-//   Back=()=>
-//   {
-//     this.props.navigation.navigate('Add1');
-//   }
-//   Next=()=>
-//   {
-//     this.props.navigation.navigate('Add3');
-//   }
-//   render() {
+  handleChange = (e, index) => {
+    this.state.titles[index] = e.target.value
+  }
+
+  deleteField = (index)=> {
+    this.state.titles.splice(index,1)
+    this.setState({titles: this.state.titles})
+  }
+
+
+
+  render() {
+  //const [inputs, setInputs] = useState([{key: '', value: ''}]);
 
 return(
   <>
       <View style={styles.profilepage}>
         <View style={styles.navbar}>
-        <TouchableOpacity activeOpacity={0.95}  onPress={()=> {Back()}} style={styles.to}>
+        <TouchableOpacity activeOpacity={0.95}  onPress={this.Back} style={styles.to}>
           <ArrowLeft style={styles.menu} stroke="white"  width={25} height={25} margin={15}/>
 {/* <Bell style={styles.notif} stroke="white"  width={25} height={25} margin={15}/> */}
           <Text style={styles.title}>2/3 ADD CHALLENGES</Text>
@@ -64,25 +93,43 @@ return(
 
         </View>
         <View style={styles.div2}>
-          
+          <ScrollView>
+
+
+
+{this.state.titles.map((title, index)=>(
+        <View>
           <TextInput
+          key={index}
           style={styles.input}
           placeholder="challenge"
-          value={challenge}
-          onChangeText={setChallenge}
+          value={title}
+          onChangeText={(e)=>this.handleChange(e,index)}
+          // value={challenge}
+          // onChangeText={setChallenge}
           />
 
-          <TouchableOpacity activeOpacity={0.95} style={styles.add} onPress={()=> {Add()}}>
-          <Plus stroke="blue"  width={25} height={25} margin={15}/>
+          <TouchableOpacity activeOpacity={0.95} style={styles.add} onPress={()=> this.deleteField(index)}>
+          <Trash stroke="red"  width={25} height={25} margin={15}/>
 
         </TouchableOpacity>
+        </View>
 
-        <View style={styles.list}>
+))}
+
+
+
+        <TouchableOpacity onPress={this.addField}>
+          <PlusCircle stroke="#3e71ff"  style={styles.plus} width={25} height={25} margin={15}/>
+          <Text style={styles.addone}>Add one</Text>
+        </TouchableOpacity>
+</ScrollView>
+        {/* <View style={styles.list}>
           <Text style={styles.listtext}>Read a poetry book</Text>
           <TouchableOpacity activeOpacity={0.95} style={styles.delete} onPress={()=> {Delete()}}>
           <Trash stroke="red"  width={25} height={25} margin={15}/>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         
         
@@ -100,19 +147,21 @@ style={styles.search}
   /> */}
 
 
-        <TouchableOpacity activeOpacity={0.95} style={styles.start} onPress={()=> {Next()}}>
+        <TouchableOpacity activeOpacity={0.95} style={styles.start} onPress={this.Next}>
           <ArrowRight stroke="#fff"  width={25} height={25} margin={15}/>
 
         </TouchableOpacity>
         </View>
+        <View style={styles.broll}>
+            </View>
       </View>
       </>
 )
 //}
 }
-//}
+}
 
-export default Add2;
+//export default Add2;
 
 
 
@@ -125,7 +174,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     backgroundColor: "#3E71FF",
-    height: 50
+    height: "7%"
   },
   menu: {
     position: "absolute",
@@ -152,6 +201,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     zIndex: 0,
     elevation: 0,
+    bottom: 30
   },
   to: {
     height: 50
@@ -160,7 +210,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5, 
     backgroundColor: "white",
-    justifyContent: "center"
+    justifyContent: "center",
+    height: "93%"
   },
   search: {
     zIndex: 22,
@@ -178,7 +229,7 @@ const styles = StyleSheet.create({
     borderColor: "#e2e2e2",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 30,
+    marginBottom: 15,
     margin: 20,marginRight: 75
   },
   list: {
@@ -197,5 +248,16 @@ marginBottom: 15
     padding: 0,
     marginRight: 15,
   },
+ 
+  addone: {
+    color: "#3e71ff",
+    fontWeight: "bold",
+    position: "absolute",
+    top: 17,
+    left: 55
+  },
+  plus: {
+    marginLeft: 20
+  }
 
 })

@@ -11,7 +11,7 @@ import GlobalFont from 'react-native-global-font';
 export default class Intro extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
 
@@ -28,7 +28,7 @@ export default class Intro extends Component
       <StatusBar backgroundColor='#fff' barStyle="dark-content" />
         <Image style={styles.logo} source={require('../images/discoveread.png')} />
         <Text style={styles.disco}>DISCOVEREAD</Text>
-        <Text style={styles.text}>An app that allows you to expand your book knowledge. Discover new genres, authors, characters, stories and maybe your new favorite book with discoveread.</Text>
+        <Text style={styles.text}>Discover new genres, authors, characters, stories and maybe your new favorite book with discoveread.</Text>
         <TouchableOpacity activeOpacity={0.95} style={styles.start} onPress={this.Next}>
           <ArrowRight style={styles.ArrowRight} stroke="#fff"  width={25} height={25} margin={15}/>
 

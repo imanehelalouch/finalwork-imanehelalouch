@@ -1,5 +1,5 @@
 import React, {Component,useState} from 'react';
-import {SafeAreaView, View, Text, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, View, Text,ScrollView, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 //import { createAppContainer } from 'react-navigation';
 //import { createStackNavigator } from 'react-navigation-stack';
 import { AlignLeft } from "react-native-feather";
@@ -10,15 +10,21 @@ import { Sliders } from "react-native-feather";
 import { PlusCircle } from "react-native-feather";
 import { CheckCircle } from "react-native-feather";
 import GlobalFont from 'react-native-global-font';
+import { clubs } from './data/data';
+import { users } from './data/data';
 export default class Profile extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
-Menu=()=>
+  Menu=()=>
   {
     this.props.navigation.navigate('Menu');
+  }
+  Detail=()=>
+  {
+    this.props.navigation.navigate('Detail');
   }
   render() {
 
@@ -29,30 +35,38 @@ Menu=()=>
           <AlignLeft onPress={() => this.Menu()} style={styles.menu} stroke="white" fill="#fff" width={25} height={25} margin={15}/>
           {/* <Bell style={styles.notif} stroke="white"  width={25} height={25} margin={15}/> */}
         </View>
+        {users.map(user => (
         <View style={styles.info}>
-          <View style={styles.pp}></View>
-          <Text style={styles.name}>Imane Helalouch</Text>
+          <View style={styles.pp}>
+            <Image style={styles.cover1} source={user.pp} />
+
+          </View>
+
+          <Text style={styles.name}>{user.username}</Text>
           <View style={styles.table}>
             <View style={styles.column}>
-            <Text style={styles.number}>24</Text>
-            <Text style={styles.saved}>Saved</Text>
-            </View>
-            <View style={styles.column}>
-            <Text style={styles.number}>10</Text>
+            <Text style={styles.number}>{user.joined}</Text>
             <Text style={styles.joined}>Joined</Text>
             </View>
             <View style={styles.column}>
-            <Text style={styles.number}>3</Text>
+            <Text style={styles.number}>{user.completed}</Text>
             <Text style={styles.completed}>Completed</Text>
             </View>
           </View>
-        </View>
 
+
+        </View>
+        ))}
+<ScrollView>
         <View style={styles.div2}>
+
+        {clubs.map(club => (
+          <TouchableOpacity onPress={()=> this.props.navigation.navigate('Detail', club)}>
           <View >
-          <Text style={styles.title}>Buzzword-a-thon</Text>
-          <Text style={styles.subtitle}>Joined</Text>
-          <Text style={styles.sidetitle}>2 days left</Text>
+          <Text style={styles.title}>{club.title}</Text>
+          <Text style={styles.sidetitle}>{club.status}</Text>
+          <Text style={styles.subtitle}>{club.start} - {club.end}</Text>
+          
           <View style={styles.challenges}>
             <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
             <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
@@ -62,20 +76,12 @@ Menu=()=>
             <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={5}/>
           </View>
           </View>
-          <View >
-          <Text style={styles.title}>Buzzword-a-thon</Text>
-          <Text style={styles.subtitle}>Saved</Text>
-          <Text style={styles.sidetitle}>5 days left</Text>
-          <View style={styles.challenges}>
-            <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
-            <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
-            <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
-            <CheckCircle style={styles.CheckCircle} stroke="#60D56C"  width={25} height={25} margin={5}/>
-            <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={5}/>
-            <CheckCircle style={styles.CheckCircle} stroke="#efefef"  width={25} height={25} margin={5}/>
-          </View>
+        </TouchableOpacity>
+        ))}
         </View>
-        </View>
+        </ScrollView>
+        <View style={styles.broll}>
+            </View>
       </View>
       
     );
@@ -110,11 +116,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   pp: {
-    height: 70,
-    width: 70,
+    height: 80,
+    width: 80,
     borderRadius: 50,
-    backgroundColor: "white",
-    marginTop: 20
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    marginTop: 20,
+    
   },
   info: {
     alignItems: "center",
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold", 
     textAlign: "center",
-    padding: 5
+    padding: 5,
   },
   saved: {
     backgroundColor: "#FFC96A",
@@ -180,7 +187,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     paddingTop: 20,
     paddingLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    marginBottom:160,
+    height: "100%"
   },
   title: {
     fontSize: 16,
@@ -189,16 +198,18 @@ const styles = StyleSheet.create({
 
   },
   subtitle: {
-    color: "#7AAFFF",
+    color: "grey",
     paddingLeft: 20,
+    fontSize: 12,
     top: 10
   },
   sidetitle: {
     position: "absolute",
     top: 10,
     right: 30,
-    fontSize: 13,
-    color: "grey"
+    
+    
+    color: "#7AAFFF",
   },
   challenges: {
     flexDirection: 'row',
@@ -207,5 +218,12 @@ const styles = StyleSheet.create({
     margin:12,
     marginTop: 15,
     marginBottom: 0
-  }
+  },
+ cover1: {
+backgroundColor: "white",
+    borderRadius: 50, 
+    width: 70, 
+    height: 70,
+    alignSelf: "center",top: 5
+  },
 })

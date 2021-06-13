@@ -10,6 +10,7 @@ import { X } from "react-native-feather";
 import { Check } from "react-native-feather";
 import GlobalFont from 'react-native-global-font';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { radio } from './data/data';
 
 const data = [
 {label: '24   25   26', value: "#FF8787", color: "#FF8787" },
@@ -25,7 +26,7 @@ const colors = ['#FF8787', '#FED48A', '#84BDFF', '#73ECB0', '#FF9EF9', '#C19EFF'
 export default class Add3 extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
   Back=()=>
@@ -64,6 +65,8 @@ style={styles.radio}
 
         </TouchableOpacity>
         </View>
+        <View style={styles.broll}>
+            </View>
       </View>
       
     );
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     backgroundColor: "#3E71FF",
-    height: 50
+    height: "7%"
   },
   menu: {
     position: "absolute",
@@ -107,6 +110,8 @@ const styles = StyleSheet.create({
     borderRadius:100,
     marginTop: 60,
     alignSelf: "center",
+    bottom: 30,
+    bottom: -87,
   },
   to: {
     height: 50
@@ -115,7 +120,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5, 
     backgroundColor: "white",
-    paddingTop: 10
+    paddingTop: 10,
+    height:"94%"
   },
   radio: {
     borderColor: "white",
@@ -123,6 +129,6 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 0,
     backgroundColor: "white"
-  }
-
+  },
+  
 })

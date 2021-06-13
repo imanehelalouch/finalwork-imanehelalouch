@@ -4,6 +4,7 @@ import {SafeAreaView, View, Text, ImageComponent, Image, Button,FlatList, StyleS
 //import { createStackNavigator } from 'react-navigation-stack';
 import { AlignLeft } from "react-native-feather";
 import { X } from "react-native-feather";
+import { Bell } from "react-native-feather";
 import { Compass } from "react-native-feather";
 import { Calendar } from "react-native-feather";
 import { User } from "react-native-feather";
@@ -15,7 +16,7 @@ import GlobalFont from 'react-native-global-font';
 export default class Menu extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
   Landing=()=>
@@ -45,9 +46,13 @@ export default class Menu extends Component
       
       <View style={styles.menu}>
           <View style={styles.navbar}>
-          <TouchableOpacity  onPress={() => this.props.navigation.dispatch(NavigationActions.back())} style={styles.navbar}> 
+          <TouchableOpacity  onPress={this.Landing} style={styles.navbar}> 
             <X style={styles.cross} stroke="white" fill="#fff" width={25} height={25} margin={15}/>
           </TouchableOpacity>
+          <TouchableOpacity  onPress={() => this.Settings()} style={styles.notif}> 
+              <Settings style={styles.notif} stroke="white"  width={22} height={22} margin={15}/>
+          </TouchableOpacity>
+
           </View>
           <View style={styles.menulist}>
             <TouchableOpacity onPress={() => this.Landing()} style={styles.bar}>
@@ -61,10 +66,6 @@ export default class Menu extends Component
             <TouchableOpacity onPress={() => this.Profile()} style={styles.bar}>
               <User style={styles.menuitem} stroke="#3E71FF"  width={25} height={25} margin={15}/>
               <Text style={styles.itemtext}>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.Settings()} style={styles.bar}>
-              <Settings style={styles.menuitem} stroke="#3E71FF"  width={25} height={25} margin={15}/>
-              <Text style={styles.itemtext}>Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.LogOut()} style={styles.bar}>
               <LogOut style={styles.menuitem} stroke="#3E71FF"  width={25} height={25} margin={15}/>
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },navbar: {
     backgroundColor: "#3E71FF",
-height: 50
+height: "7%"
   },
   cross :{
     position: "absolute",
@@ -107,6 +108,7 @@ height: 50
     backgroundColor: "white",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    height: "94%"
   },
   itemtext: {
     position: "absolute",
@@ -121,8 +123,12 @@ height: 50
     width: "100%",
     height: 60
   },
-  broll: {
-    backgroundColor: "white",
-    height: "52%"
-  }
+
+  notif: {
+    position: "absolute",
+    top: 0,
+    right: 5,
+    resizeMode: 'contain',
+    flex: 1
+  },
 })

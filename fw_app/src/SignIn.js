@@ -7,7 +7,7 @@ import {Container, Header, Content, Form, Input, Item, Button, Label} from 'nati
 export default class SignIn extends Component
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
 

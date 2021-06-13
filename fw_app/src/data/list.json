@@ -1,0 +1,68 @@
+[
+
+    {
+      "title": "Vault-a-thon", 
+      "description": "A read-a-thon focusing on disney retellings. Try to read as much disney related books as u can.", 
+      "challenges": "7 challenges", 
+      "start": "05-06-2021", 
+      "end": "12-06-2021", 
+      "color": "#FED48A",
+      "key": 1
+    },
+    
+    {
+      "title": "Blacklit Challenge", 
+      "description": "A readathon celebrating black literature!",
+      "challenges": "5 challenges", 
+      "start": "06-06-2021", 
+      "end": "10-06-2021", 
+      "color": "#84BDFF",
+      "key": 2
+    },
+    {
+      "title": "Read-eh-thon", 
+      "description": "Celebrating canadian authors.", 
+      "challenges": "3 challenges", 
+      "start": "01-07-2021", 
+      "end": "05-07-2021", 
+      "color": "#73ECB0",
+      "key": 3
+    },
+    {
+      "title": "Spook-a-thon", 
+      "description": "During the time of halloween, reading spooky books.", 
+      "challenges": "6 challenges", 
+      "start": "03-07-2021", 
+      "end": "09-07-2021", 
+      "color": "#FF9EF9",
+      "key": 4
+    },
+    {
+      "title": "Buzzword-a-thon", 
+      "description": "Read the bestselling books of the year", 
+      "challenges": "5 challenges", 
+      "start": "07-07-2021", 
+      "end": "13-07-2021", 
+      "color": "#FF9EF9",
+      "key": 5
+    },
+    {
+      "title": "Adaptation Challenge", 
+      "description": "Read books that have a tv or movie adaptation.", 
+      "challenges": "8 challenges", 
+      "start": "22-07-2021", 
+      "end": "27-07-2021", 
+      "color": "#73ECB0",
+      "key": 6
+    },
+    {
+      "title": "Summer-a-thon", 
+      "description": "Read-a-thon where we read books that have a summer vibe to it", 
+      "challenges": "6 challenges", 
+      "start": "25-07-2021", 
+      "end": "30-07-2021", 
+      "color": "#84BDFF",
+      "key": 7
+    }
+  ]
+

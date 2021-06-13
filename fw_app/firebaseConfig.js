@@ -18,29 +18,29 @@ const app = firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore(app);
 
-class FirebaseApp extends Component {
-    state = {
-        club: {
-            name: ""
-        }
-    }
-  constructor(props) {
-    super(props);
-    this.getClub();
-    this.subscriber = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').onSnapshot(doc =>{
-        this.setState({
-            club: {
-                name: doc.data().name
-            }
-        })
-    })
-  }
+// class FirebaseApp extends Component {
+//     state = {
+//         club: {
+//             name: ""
+//         }
+//     }
+//   constructor(props) {
+//     super(props);
+//     this.getClub();
+//     this.subscriber = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').onSnapshot(doc =>{
+//         this.setState({
+//             club: {
+//                 name: doc.data().name
+//             }
+//         })
+//     })
+//   }
 
-  getClub = async () => {
-    const clubDocument = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').get()
-    console.log(clubDocument);
-  }
-}
+//   getClub = async () => {
+//     const clubDocument = firebase().collection('clubs').doc('WJ2kAa9E5zNjFwmdIOJ1').get()
+//     console.log(clubDocument);
+//   }
+// }
 
 export const ClubsRef = db.collection("clubs");
 

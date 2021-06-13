@@ -1,5 +1,5 @@
 import React, {Component,useState} from 'react';
-import {SafeAreaView, View, Text, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, View, Text, ScrollView, ImageComponent, Image, Button,FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 //import { createAppContainer } from 'react-navigation';
 //import { createStackNavigator } from 'react-navigation-stack';
 import { AlignLeft } from "react-native-feather";
@@ -7,11 +7,11 @@ import { Bell } from "react-native-feather";
 import { Circle } from "react-native-feather";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import GlobalFont from 'react-native-global-font';
-
+import { clubs } from './data/data';
 export default class Home extends Component 
 {
   componentDidMount() {
-    let fontName = 'Poppins'
+    let fontName = 'Inter'
     GlobalFont.applyGlobal(fontName)   //<------- Added font family golbally 
  }
 Menu=()=>
@@ -19,9 +19,7 @@ Menu=()=>
     this.props.navigation.navigate('Menu');
   }
   render() {
-const vacation = {key:'vacation', color: 'red', selectedDotColor: 'blue'};
-const massage = {key:'massage', color: 'blue', selectedDotColor: 'blue'};
-const workout = {key:'workout', color: 'green'};
+
     return(
       
       <View style={styles.calendarpage}>
@@ -54,22 +52,34 @@ theme={{
   }}
   markedDates={{
     '2021-06-22': {startingDay: true, color: '#FF9EF9', textColor: 'white'},
+    '2021-06-26': {startingDay: true, color: '#73ECB0', textColor: 'white'},
+    '2021-06-27': {startingDay: false, color: '#73ECB0', textColor: 'white'},
+    '2021-06-28': {selected: true, endingDay: true, color: '#73ECB0', textColor: 'white'},
     '2021-06-23': {selected: true, endingDay: true, color: '#FF9EF9', textColor: 'white'},
-    '2021-06-04': {disabled: true, startingDay: true, color: '#84BDFF', endingDay: true, textColor: 'white'}
+    '2021-06-25': {disabled: true, startingDay: true, color: '#FF8787', endingDay: true, textColor: 'white'},
+    '2021-07-22': {startingDay: true, color: '#FF8787', textColor: 'white'},
+    '2021-07-26': {startingDay: true, color: '#84BDFF', textColor: 'white'},
+    '2021-07-27': {startingDay: false, color: '#84BDFF', textColor: 'white'},
+    '2021-07-28': {selected: true, endingDay: true, color: '#84BDFF', textColor: 'white'},
+    '2021-07-23': {selected: true, endingDay: true, color: '#FF8787', textColor: 'white'},
   }}
   // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
   markingType={'period'}
 />
+      <ScrollView>
         <View style={styles.div2}>
+          {clubs.map(club =>(
+            <TouchableOpacity onPress={()=> {this.props.navigation.navigate('Detail', club)}}>
           <View >
-          <Circle style={styles.dot} fill="#84BDFF" width={25} height={25} margin={15}/>
-          <Text style={styles.title}>Buzzword-a-thon</Text>
+          <Circle style={styles.dot} fill={club.color} width={25} height={25} margin={15}/>
+          <Text style={styles.title}>{club.title}</Text>
+          <Text style={styles.subtitle}>{club.start} - {club.end}</Text>
+
           </View>
-          <View >
-          <Circle style={styles.dot} fill="#FF9EF9" width={25} height={25} margin={15}/>
-          <Text style={styles.title}>Buzzword-a-thon</Text>
+          </TouchableOpacity>
+          ))}
         </View>
-        </View>
+      </ScrollView>
         <View style={styles.broll}>
             </View>
       </View>
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
 
   },navbar: {
 
-height: 50
+height: "7%"
   },
   menu: {
     position: "absolute",
@@ -104,13 +114,19 @@ height: 50
     right: 5,
     resizeMode: 'contain',
     flex: 1
+  },subtitle: {
+    color: "grey",
+    paddingLeft: 60,
+    fontSize: 12,
+    top: -10
   },
 div2: {
     backgroundColor: "white",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     paddingTop: 20,
-    paddingLeft: 10
+    paddingLeft: 10,paddingBottom: 80,
+    height: "100%"
   },
   title: {
     position: "absolute",
@@ -120,11 +136,13 @@ div2: {
   },
   broll: {
     backgroundColor: "white",
-    height: "29%"
+    height: "10%",
+    
   },
   calendar: {
     marginTop: -5,
-    marginBottom: 10
+    marginBottom: -35,
+    height: "43%"
   }
       
 })
