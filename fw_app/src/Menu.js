@@ -49,7 +49,7 @@ export default class Menu extends Component
           <TouchableOpacity  onPress={this.Landing} style={styles.navbar}> 
             <X style={styles.cross} stroke="white" fill="#fff" width={25} height={25} margin={15}/>
           </TouchableOpacity>
-          <TouchableOpacity  onPress={() => this.Settings()} style={styles.notif}> 
+          <TouchableOpacity  onPress={this.Settings} style={styles.notif}> 
               <Settings style={styles.notif} stroke="white"  width={22} height={22} margin={15}/>
           </TouchableOpacity>
 
